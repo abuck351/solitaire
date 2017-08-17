@@ -10,5 +10,5 @@ Press the *r* key to generate a new deck.
 ## Testing
 To test the code, run the `solitaire_tests.py` file.
 
-
-*Card png images courtesy of [https://code.google.com/archive/p/vector-playing-cards/](https://code.google.com/archive/p/vector-playing-cards/)*
+## Assets
+Card png images courtesy of https://code.google.com/archive/p/vector-playing-cards/
