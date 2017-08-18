@@ -6,7 +6,8 @@ So far the game only creates a random deck of cards and displays the cards in a 
 
 ### How to Play
 Press the *r* key to generate a new deck.
-Click on the card to see the name of the card.
+
+Click on a card to see the name of the card.
 
 ### Testing
 To test the code, run the `solitaire_tests.py` file.
