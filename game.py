@@ -42,9 +42,11 @@ def game_loop():
                 if event.key == pygame.K_r:
                     game_loop()
             if event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_x, mouse_y = pygame.mouse.get_pos()
                 if event.button == 1:
-                    mouse_x, mouse_y = pygame.mouse.get_pos()
                     deck.handle_click((mouse_x, mouse_y))
+                if event.button == 3:
+                    deck.handle_right_click((mouse_x, mouse_y))
 
         game_display.fill(green)
         deck.display(game_display)

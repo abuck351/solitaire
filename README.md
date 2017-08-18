@@ -9,6 +9,8 @@ Press the *r* key to generate a new deck.
 
 Click on a card to see the name of the card.
 
+Right click to deselect
+
 ### Testing
 To test the code, run the `solitaire_tests.py` file.
 

@@ -51,14 +51,20 @@ class Deck:
         random.shuffle(self.cards)
 
     def handle_click(self, mouse_position):
-        for pile in self.piles:
-            highest_layer = 0
-            for layer, card in enumerate(pile.cards):
-                card_clicked = card.check_if_clicked(mouse_position)
-                if card_clicked and layer >= highest_layer:
-                    highest_layer = layer
-                    self.selected_card = card
+        if self.selected_card == None:
+            for pile in self.piles:
+                for card in pile.cards:
+                    card_clicked = card.check_if_clicked(mouse_position)
+                    if card_clicked:
+                        self.selected_card = card
+        else:
+            # this is where the player chooses where to place the card
+            self.selected_card = None
+
         print(self.selected_card)
+
+    def handle_right_click(self, mouse_position):
+        self.selected_card = None
 
     def display(self, game_display):
         # TODO: This will have to take into account the layer
