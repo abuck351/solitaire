@@ -2,10 +2,11 @@
 A Solitaire card game made in python with [pygame](https://www.pygame.org/news)
 
 ## Current State of the Project
-So far the game only creates a random deck of cards and displays the cards in random locations in the window.
+So far the game only creates a random deck of cards and displays the cards in a standard Solitaire layout.
 
 ### How to Play
 Press the *r* key to generate a new deck.
+Click on the card to see the name of the card.
 
 ### Testing
 To test the code, run the `solitaire_tests.py` file.

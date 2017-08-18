@@ -1,4 +1,6 @@
 # https://en.wikipedia.org/wiki/Glossary_of_patience_terms
+# stock, tableau, and foundation
+
 import pygame
 from deck import Deck
 
@@ -9,8 +11,8 @@ green = (0, 200, 0)
 
 pygame.init()
 
-display_width = 1200
-display_height = 1000
+display_width = 1100
+display_height = 800
 game_display = pygame.display.set_mode((display_width, display_height))
 
 pygame.display.set_caption('Solitare')
@@ -30,6 +32,7 @@ def game_loop():
     deck = Deck()
     deck.load_cards()
     deck.shuffle_cards()
+    deck.load_piles()
 
     while True:
         for event in pygame.event.get():
@@ -38,6 +41,10 @@ def game_loop():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_r:
                     game_loop()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    mouse_x, mouse_y = pygame.mouse.get_pos()
+                    deck.handle_click((mouse_x, mouse_y))
 
         game_display.fill(green)
         deck.display(game_display)
