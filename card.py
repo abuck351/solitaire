@@ -37,3 +37,6 @@ class Card:
 
     def __str__(self):
         return "{} of {}".format(self.rank, self.suit)
+
+    def __repr__(self):
+        return self.__str__()

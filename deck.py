@@ -8,7 +8,12 @@ from card import Card
 class Deck:
     def __init__(self):
         self.cards = []
+
         self.selected_card = None
+        self.selected_cards = []
+        self.selected_pile = None
+        self.selection_rect = None
+        self.selection_color = (255, 255, 0)
 
         self.card_size = (100, 150)
         self.card_back = pygame.image.load('card_back.png')
@@ -50,27 +55,39 @@ class Deck:
     def shuffle_cards(self):
         random.shuffle(self.cards)
 
+    def deselect(self):
+        self.selected_card = None
+        self.selected_pile = None
+        self.selected_cards = []
+
     def handle_click(self, mouse_position):
         if self.selected_card == None:
             for pile in self.piles:
-                for card in pile.cards:
+                for index, card in enumerate(pile.cards):
                     card_clicked = card.check_if_clicked(mouse_position)
-                    if card_clicked:
+                    if card_clicked and card.face_up:
                         self.selected_card = card
+                        self.selected_cards = pile.cards[index:]
+                        self.selected_pile = pile
         else:
             # this is where the player chooses where to place the card
-            self.selected_card = None
+            self.deselect()
+            
 
-        print(self.selected_card)
+        if self.selected_card != None:
+            self.selection_rect = self.selected_pile.selected_cards_info(self.selected_card)
+
+        print(str(self.selected_cards))
 
     def handle_right_click(self, mouse_position):
-        self.selected_card = None
+        self.deselect()
 
     def display(self, game_display):
-        # TODO: This will have to take into account the layer
-        #       Draw each pile seperatly
         for pile in self.piles:
             for card in pile.cards:
+                if card == self.selected_card:
+                    if self.selection_rect != None:
+                        pygame.draw.rect(game_display, self.selection_color, self.selection_rect)
                 img, x, y = card.display_info()
                 game_display.blit(img, [x, y])
 
