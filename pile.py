@@ -9,13 +9,17 @@ class Pile:
 
         self.cards = cards
 
-        if pile_type == "tableau":
-            self.cards[-1].face_up = True
-            for index, card in enumerate(self.cards):
-                card.position = (self.x, self.y + (index * self.card_spacing))
-        if pile_type == "stock":
-            for card in self.cards:
-                card.position = (self.x, self.y)
+        self.card_positions()
+
+    def card_positions(self):
+        if len(self.cards) != 0:
+            if self.pile_type == "tableau":
+                self.cards[-1].face_up = True
+                for index, card in enumerate(self.cards):
+                    card.position = (self.x, self.y + (index * self.card_spacing))
+            if self.pile_type == "stock":
+                for card in self.cards:
+                    card.position = (self.x, self.y)
 
     def selected_cards_info(self, card):
         padding = 10
@@ -31,3 +35,12 @@ class Pile:
 
         return [rect_x, rect_y, rect_w, rect_h]
 
+    def check_if_clicked(self, mouse_position, width):
+        if self.pile_type == "tableau":
+            mouse_x, mouse_y = mouse_position
+            height = 500
+
+            if self.x < mouse_x < self.x + width and self.y < mouse_y < self.y + height:
+                return True
+            else:
+                return False

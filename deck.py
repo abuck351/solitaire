@@ -71,6 +71,23 @@ class Deck:
                         self.selected_pile = pile
         else:
             # this is where the player chooses where to place the card
+            pile_to_place_cards = None
+            for pile in self.piles:
+                if pile.pile_type == "tableau" or pile.pile_type == "foundation":
+                    pile_clicked = pile.check_if_clicked(mouse_position, self.selected_cards[0].card_size[0])
+                    if pile_clicked:
+                        pile_to_place_cards = pile
+            if pile_to_place_cards != None:
+                for card in self.selected_cards:
+                    self.selected_pile.cards.remove(card)
+                    pile_to_place_cards.cards.append(card)
+
+                for pile in self.piles:
+                    pile.card_positions()
+
+                if len(self.selected_pile.cards) != 0:
+                    self.selected_pile.cards[-1].face_up = True
+
             self.deselect()
             
 
