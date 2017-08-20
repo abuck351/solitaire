@@ -77,7 +77,8 @@ class Deck:
                     pile_clicked = pile.check_if_clicked(mouse_position, self.selected_cards[0].card_size[0])
                     if pile_clicked:
                         pile_to_place_cards = pile
-            if pile_to_place_cards != None:
+
+            if pile_to_place_cards != None and pile_to_place_cards != self.selected_pile:
                 for card in self.selected_cards:
                     self.selected_pile.cards.remove(card)
                     pile_to_place_cards.cards.append(card)
