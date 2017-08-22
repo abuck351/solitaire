@@ -9,7 +9,8 @@ class SolitaireTests(unittest.TestCase):
         self.deck = Deck()
         self.deck.load_cards()
         self.deck.shuffle_cards()
-        self.deck.load_piles()
+        # TODO: Try to find a way not to hardcode the width and height
+        self.deck.load_piles((1100, 800))
 
     def test_deck_size(self):
         self.assertEqual(len(self.deck.cards), 52)

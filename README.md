@@ -1,19 +1,20 @@
-# Solitaire *WIP*
+# Solitaire
 A Solitaire card game made in python with [pygame](https://www.pygame.org/news)
 
-## Current State of the Project
-So far the game only creates a random deck of cards and displays the cards in a standard Solitaire layout.
-
-Selected cards now show a yellow border surrounding them.
-
-Cards can only be selected if they are face up.
+## Goals for the Future
+- [ ] Win condition
+- [ ] More tests in `solitaire_tests.py`
+- [ ] Menu
+- [ ] Dragging and dropping of cards
 
 ### How to Play
-Press the *r* key to generate a new deck.
+Press the *r* key to restart the game.
 
 Click on a card to select it and all cards under it. Once selected, click on the pile you want to move the cards to.
 
 Right click to deselect
+
+Click on the deck to draw three cards
 
 ### Testing
 To test the code, run the `solitaire_tests.py` file.

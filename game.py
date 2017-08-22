@@ -1,6 +1,3 @@
-# https://en.wikipedia.org/wiki/Glossary_of_patience_terms
-# stock, tableau, and foundation
-
 import pygame
 from deck import Deck
 
@@ -9,10 +6,11 @@ white = (255, 255, 255)
 black = (0, 0, 0)
 green = (0, 200, 0)
 
-pygame.init()
-
 display_width = 1100
 display_height = 800
+
+pygame.init()
+
 game_display = pygame.display.set_mode((display_width, display_height))
 
 pygame.display.set_caption('Solitare')
@@ -27,12 +25,11 @@ def quit_game():
 
 def game_loop():
     FPS = 10
-    #import pdb; pdb.set_trace()
 
     deck = Deck()
     deck.load_cards()
     deck.shuffle_cards()
-    deck.load_piles()
+    deck.load_piles((display_width, display_height))
 
     while True:
         for event in pygame.event.get():
