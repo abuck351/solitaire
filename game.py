@@ -5,6 +5,7 @@ from deck import Deck
 white = (255, 255, 255)
 black = (0, 0, 0)
 green = (0, 200, 0)
+blue = (50, 50, 190)
 
 display_width = 1100
 display_height = 800
@@ -45,7 +46,7 @@ def game_loop():
                 if event.button == 3:
                     deck.handle_right_click((mouse_x, mouse_y))
 
-        game_display.fill(green)
+        game_display.fill(blue)
         deck.display(game_display)
         pygame.display.update()
         clock.tick(FPS)

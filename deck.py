@@ -19,7 +19,7 @@ class Deck:
 
         self.selection_rect = None
         self.selection_color = (255, 255, 0)
-        self.empty_color = (100, 200, 100)
+        self.empty_color = (100, 100, 200)
 
         self.card_size = (100, 150)
         self.card_back = pygame.image.load('card_back.png')
