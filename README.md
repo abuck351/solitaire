@@ -5,6 +5,8 @@ A Solitaire card game made in python with [pygame](https://www.pygame.org/news)
 - [ ] Win condition
 - [ ] More tests in `solitaire_tests.py`
 - [ ] Menu
+- [ ] Undo and redo
+- [ ] Piles resize to fit inside window
 - [ ] Dragging and dropping of cards
 
 ### How to Play
