@@ -100,6 +100,15 @@ class Deck:
     def handle_right_click(self, mouse_position):
         self.deselect()
 
+    def check_for_win(self):
+        foundation_piles = [pile for pile in self.piles if pile.pile_type == 'foundation']
+        for pile in foundation_piles:
+            if len(pile.cards) < 13:
+                break
+        else:
+            # TODO: Go to an actual win screen
+            print('You win!!!')
+
     def display(self, game_display):
         for pile in self.piles:
             if pile.pile_type == 'foundation' or pile.pile_type == 'deck' and len(pile.cards) == 0:

@@ -74,19 +74,15 @@ class Pile:
 
             if len(self.cards) != 0:
                 if self.draw_three == True:
-                    index_range = 0
                     if len(self.cards) >= 3:
-                        wastepile.cards.append(self.cards[-3])
-                        index_range += 1
-                        
-                    if len(self.cards) >= 2:
-                        wastepile.cards.append(self.cards[-2])
-                        index_range += 1
-
-                    wastepile.cards.append(self.cards[-1])
-                    index_range += 1
+                        index_range = 3
+                    elif len(self.cards) == 2:
+                        index_range = 2
+                    else:
+                        index_range = 1
 
                     for _ in range(index_range):
+                        wastepile.cards.append(self.cards[-1])
                         del self.cards[-1]
                 else:
                     wastepile.cards.append(self.cards[-1])
