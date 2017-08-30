@@ -1,6 +1,6 @@
 import pygame
 from deck import Deck
-from ui import Text
+from ui import Text, Button
 
 
 white = (255, 255, 255)
@@ -57,6 +57,7 @@ def game_loop():
 
 def start_menu():
     title = Text(display_dimensions, (0, 0), "Solitaire", 50, black)
+    play_button = Button(display_dimensions, "Play", (0, 100), (100, 50), blue)
 
     while True:
         for event in pygame.event.get():
