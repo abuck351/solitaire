@@ -33,7 +33,8 @@ def game_loop():
     deck.load_piles((display_width, display_height))
 
     while True:
-        deck.check_for_win()
+        if deck.check_for_win():
+            print("You win!!!")
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:

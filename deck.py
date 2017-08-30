@@ -104,10 +104,9 @@ class Deck:
         foundation_piles = [pile for pile in self.piles if pile.pile_type == 'foundation']
         for pile in foundation_piles:
             if len(pile.cards) < 13:
-                break
+                return False
         else:
-            # TODO: Go to an actual win screen
-            print('You win!!!')
+            return True
 
     def display(self, game_display):
         for pile in self.piles:
