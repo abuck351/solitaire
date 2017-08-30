@@ -1,5 +1,6 @@
 import pygame
 from deck import Deck
+from ui import Text
 
 
 white = (255, 255, 255)
@@ -7,12 +8,11 @@ black = (0, 0, 0)
 green = (0, 200, 0)
 blue = (50, 50, 190)
 
-display_width = 1100
-display_height = 800
+display_dimensions = (1100, 800)
 
 pygame.init()
 
-game_display = pygame.display.set_mode((display_width, display_height))
+game_display = pygame.display.set_mode(display_dimensions)
 
 pygame.display.set_caption('Solitare')
 
@@ -30,7 +30,7 @@ def game_loop():
     deck = Deck()
     deck.load_cards()
     deck.shuffle_cards()
-    deck.load_piles((display_width, display_height))
+    deck.load_piles(display_dimensions)
 
     while True:
         if deck.check_for_win():
@@ -55,4 +55,21 @@ def game_loop():
         clock.tick(FPS)
 
 
-game_loop()
+def start_menu():
+    title = Text(display_dimensions, (0, 0), "Solitaire", 50, black)
+
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quit_game()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_x, mouse_y = pygame.mouse.get_pos()
+                if event.button == 1:
+                    pass
+
+        game_display.fill(white)
+        title.display(game_display)
+        pygame.display.update()
+
+
+start_menu()
