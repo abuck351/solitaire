@@ -69,7 +69,10 @@ def start_menu():
                     pass
 
         game_display.fill(white)
+
         title.display(game_display)
+        play_button.display(game_display, pygame.mouse.get_pos())
+
         pygame.display.update()
 
 
