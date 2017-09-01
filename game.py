@@ -7,6 +7,8 @@ white = (255, 255, 255)
 black = (0, 0, 0)
 green = (0, 200, 0)
 blue = (50, 50, 190)
+red = (190, 50, 50)
+grey = (100, 100, 100)
 
 display_dimensions = (1100, 800)
 
@@ -57,7 +59,11 @@ def game_loop():
 
 def start_menu():
     title = Text(display_dimensions, (0, 0), "Solitaire", 50, black)
-    play_button = Button(display_dimensions, "Play", (0, 100), (100, 50), blue)
+
+    buttons = []
+    buttons.append(Button(display_dimensions, "Play", (0, 100), (100, 50), blue, text_color=white, action="start_game"))
+    buttons.append(Button(display_dimensions, "Quit", (200, 100), (100, 50), red, text_color=white, action="quit"))
+    buttons.append(Button(display_dimensions, "Options", (-200, 100), (100, 50), grey, text_color=white, enabled=False, action="options"))
 
     while True:
         for event in pygame.event.get():
@@ -66,12 +72,24 @@ def start_menu():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_x, mouse_y = pygame.mouse.get_pos()
                 if event.button == 1:
-                    pass
+                    for button in buttons:
+                        if button.check_if_clicked((mouse_x, mouse_y)):
+                            if button.action == "start_game":
+                                game_loop()
+                            elif button.action == "quit":
+                                quit_game()
+                            elif button.action == "options":
+                                # options_menu()
+                                pass
+                            else:
+                                print("Button action: {} does not exist".format(button.action))
 
         game_display.fill(white)
 
         title.display(game_display)
-        play_button.display(game_display, pygame.mouse.get_pos())
+
+        for button in buttons:
+            button.display(game_display, pygame.mouse.get_pos())
 
         pygame.display.update()
 
