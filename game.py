@@ -58,12 +58,12 @@ def game_loop():
 
 
 def start_menu():
-    title = Text(display_dimensions, (0, 0), "Solitaire", 50, black)
+    title = Text(display_dimensions, (0, -100), "Solitaire", 50, black)
 
     buttons = []
-    buttons.append(Button(display_dimensions, "Play", (0, 100), (100, 50), blue, text_color=white, action="start_game"))
-    buttons.append(Button(display_dimensions, "Quit", (200, 100), (100, 50), red, text_color=white, action="quit"))
-    buttons.append(Button(display_dimensions, "Options", (-200, 100), (100, 50), grey, text_color=white, enabled=False, action="options"))
+    buttons.append(Button(display_dimensions, "Play", (0, 0), (100, 50), blue, text_color=white, action="start_game"))
+    buttons.append(Button(display_dimensions, "Quit", (200, 0), (100, 50), red, text_color=white, action="quit"))
+    buttons.append(Button(display_dimensions, "Options", (-200, 0), (100, 50), grey, text_color=white, enabled=False, action="options"))
 
     while True:
         for event in pygame.event.get():
