@@ -1,3 +1,4 @@
+import os
 import random
 import pygame
 from pile import Pile
@@ -30,7 +31,8 @@ class Deck:
     def load_cards(self):
         for suit in self.suits:
             for rank in self.ranks:
-                img = pygame.image.load('cards\{}_of_{}.png'.format(rank, suit))
+                name_of_image = os.path.join('cards', '{}_of_{}.png'.format(rank, suit))
+                img = pygame.image.load(name_of_image)
                 img = pygame.transform.scale(img, self.card_size)
 
                 self.cards.append(Card(img, self.card_back, self.card_size, rank, suit))
