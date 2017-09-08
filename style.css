@@ -6,6 +6,10 @@ html{
 	font-family: "Roboto";
 }
 
+hr{
+	border-color: rgb(90, 90, 90);
+}
+
 *{
 	box-sizing: border-box;
 }
