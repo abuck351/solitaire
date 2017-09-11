@@ -29,14 +29,22 @@ class Pile:
             self.face_up = 'none'
             self.height = self.card_height
 
-        self.card_spacing = 40
+        self.max_card_spacing = 60
+        self.min_card_spacing = 10
+        self.card_spacing = self.max_card_spacing
+        self.bottom_margin = 10
+
         self.cards = cards
         self.x = x
         self.y = y
 
-        self.update_positions()
+        self.update()
 
-    def update_positions(self):
+    @property
+    def pile_bottom(self):
+        return self.cards[-1].position[1] + self.card_height
+
+    def update_faces(self):
         if len(self.cards) != 0:
             for index, card in enumerate(self.cards):
                 if self.face_up == 'none':
@@ -47,10 +55,39 @@ class Pile:
                 elif self.face_up == 'all':
                     card.face_up = True
 
+    def update_positions(self):
+        if len(self.cards) != 0:
+            for index, card in enumerate(self.cards):
                 if self.fanned == True:
                     card.position = (self.x, self.y + (index * self.card_spacing))
                 else:
                     card.position = (self.x, self.y)
+
+    def update(self):
+        self.update_faces()
+        self.update_positions()
+
+    def fit_pile_to_screen(self, display_height):
+
+        screen_bottom = display_height - self.bottom_margin
+
+        if len(self.cards) > 0:
+            if self.pile_bottom > screen_bottom:
+                while self.card_spacing > self.min_card_spacing:
+                    if self.pile_bottom < screen_bottom:
+                        break
+                    else:
+                        self.card_spacing -= 1 / len(self.cards)
+                        self.update_positions()
+            elif self.pile_bottom < screen_bottom:
+                while self.card_spacing < self.max_card_spacing:
+                    if self.pile_bottom > screen_bottom:
+                        break
+                    else:
+                        self.card_spacing += 1 / len(self.cards)
+                        self.update_positions()
+
+            self.card_spacing = round(self.card_spacing)
 
     def selected(self, mouse_position, piles):
         selection = False
@@ -66,6 +103,7 @@ class Pile:
         if self.pile_type == 'deck':
             deselect_pile = True
 
+            # find the wastepile
             wastepile = None
             for pile in piles:
                 if pile.pile_type == 'wastepile':

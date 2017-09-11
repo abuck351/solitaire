@@ -80,6 +80,15 @@ class Deck:
         else:
             return None
 
+    def update(self, piles_to_update, display_height):
+        for pile in self.piles:
+            pile.update()
+
+        if piles_to_update != None:
+            for pile in piles_to_update:
+                pile.fit_pile_to_screen(display_height)
+                pile.update_positions()
+
     def handle_click(self, mouse_position):
         if self.selection == False:
             # the player selects card/s
@@ -91,14 +100,17 @@ class Deck:
                 else:
                     if len(self.selected_cards) != 0:
                         self.selection_rect = self.selected_pile.selection_rect(self.selected_cards[0])
+            return None
         else:
             pile_to_transfer_to = self.which_pile_clicked(mouse_position)
             if self.selected_pile != None and pile_to_transfer_to != None:
                 self.selected_pile.transfer_cards(self.selected_cards, pile_to_transfer_to, self.ranks)
-            self.deselect()
+                piles_to_update = self.selected_pile, pile_to_transfer_to
+            else:
+                piles_to_update = None
 
-        for pile in self.piles:
-            pile.update_positions()
+            self.deselect()
+            return piles_to_update
 
     def handle_right_click(self, mouse_position):
         self.deselect()

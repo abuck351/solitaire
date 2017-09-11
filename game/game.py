@@ -47,7 +47,8 @@ def game_loop():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_x, mouse_y = pygame.mouse.get_pos()
                 if event.button == 1:
-                    deck.handle_click((mouse_x, mouse_y))
+                    piles_to_update = deck.handle_click((mouse_x, mouse_y))
+                    deck.update(piles_to_update, display_dimensions[1])
                 if event.button == 3:
                     deck.handle_right_click((mouse_x, mouse_y))
 
