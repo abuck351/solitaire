@@ -118,7 +118,15 @@ class Button:
         self.text_object.button_text_display(game_display, button_info)
 
 
-class Checkbox:
+class RadioGroup():
+    def __init__(self, *args):
+        self.radios = list(args)
+
+    def __iter__(self):
+        return iter(self.radios)
+
+
+class Radio:
     def __init__(self, dimensions, offsets, centered=True, checked=False, enabled=True):
         self.display_width, self.display_height = dimensions
         self.x_offset, self.y_offset = offsets
@@ -154,11 +162,18 @@ class Checkbox:
         distance = sqrt(x_dist**2 + y_dist**2)
 
         if distance < self.size:
-            self.checked = not self.checked
+            return True
+        else:
+            return False
 
-    def check_if_clicked(self, mouse_pos):
+    def check_if_clicked(self, mouse_pos, radio_group):
         if self.check_for_mouse_over(mouse_pos) and self.enabled:
-            self.checked = not self.checked
+            if radio_group != None:
+                for radio in radio_group:
+                    if radio != self:
+                        radio.checked = False
+                    else:
+                        radio.checked = True
 
     def display(self, game_display):
         # TODO: display differently when disabled

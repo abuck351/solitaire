@@ -1,6 +1,6 @@
 import pygame
 from deck import Deck
-from ui import Text, Button, Checkbox
+from ui import Text, Button, RadioGroup, Radio
 
 
 white = (255, 255, 255)
@@ -66,7 +66,9 @@ def start_menu():
     buttons.append(Button(display_dimensions, "Quit", (200, 0), (100, 50), red, text_color=white, action="quit"))
     buttons.append(Button(display_dimensions, "Options", (-200, 0), (100, 50), grey, text_color=white, enabled=False, action="options"))
 
-    checkbox1 = Checkbox(display_dimensions, (12, 12), centered=False)
+    radio1 = Radio(display_dimensions, (12, 12), centered=False, checked=True)
+    radio2 = Radio(display_dimensions, (30, 30), centered=False)
+    radio_group1 = RadioGroup(radio1, radio2)
 
     while True:
         for event in pygame.event.get():
@@ -87,12 +89,15 @@ def start_menu():
                             else:
                                 print("Button action: {} does not exist".format(button.action))
 
-                    checkbox1.check_if_clicked((mouse_x, mouse_y))
+                    for radio in radio_group1:
+                        radio.check_if_clicked((mouse_x, mouse_y), radio_group1)
 
         game_display.fill(white)
 
         title.display(game_display)
-        checkbox1.display(game_display)
+        
+        for radio in radio_group1:
+            radio.display(game_display)
 
         for button in buttons:
             button.display(game_display, pygame.mouse.get_pos())
