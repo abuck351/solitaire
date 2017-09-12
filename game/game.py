@@ -1,6 +1,6 @@
 import pygame
 from deck import Deck
-from ui import Text, Button
+from ui import Text, Button, Checkbox
 
 
 white = (255, 255, 255)
@@ -66,6 +66,8 @@ def start_menu():
     buttons.append(Button(display_dimensions, "Quit", (200, 0), (100, 50), red, text_color=white, action="quit"))
     buttons.append(Button(display_dimensions, "Options", (-200, 0), (100, 50), grey, text_color=white, enabled=False, action="options"))
 
+    checkbox1 = Checkbox(display_dimensions, (12, 12), centered=False)
+
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -85,9 +87,12 @@ def start_menu():
                             else:
                                 print("Button action: {} does not exist".format(button.action))
 
+                    checkbox1.check_if_clicked((mouse_x, mouse_y))
+
         game_display.fill(white)
 
         title.display(game_display)
+        checkbox1.display(game_display)
 
         for button in buttons:
             button.display(game_display, pygame.mouse.get_pos())
