@@ -89,15 +89,13 @@ def start_menu():
                             else:
                                 print("Button action: {} does not exist".format(button.action))
 
-                    for radio in radio_group1:
-                        radio.check_if_clicked((mouse_x, mouse_y), radio_group1)
+                    radio_group1.check_if_clicked((mouse_x, mouse_y))
 
         game_display.fill(white)
 
         title.display(game_display)
         
-        for radio in radio_group1:
-            radio.display(game_display)
+        radio_group1.display(game_display)
 
         for button in buttons:
             button.display(game_display, pygame.mouse.get_pos())

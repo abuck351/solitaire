@@ -125,6 +125,14 @@ class RadioGroup():
     def __iter__(self):
         return iter(self.radios)
 
+    def check_if_clicked(self, mouse_pos):
+        for radio in self.radios:
+            radio.check_if_clicked(mouse_pos, self)
+
+    def display(self, game_display):
+        for radio in self.radios:
+            radio.display(game_display)
+
 
 class Radio:
     def __init__(self, dimensions, offsets, centered=True, checked=False, enabled=True):
