@@ -2,7 +2,7 @@ import os
 import pygame
 from math import sqrt
 
-# could make a parent ui class
+check_img = pygame.image.load(os.path.join('resources', 'check.png'))
 
 
 class Text:
@@ -118,7 +118,7 @@ class Button:
         self.text_object.button_text_display(game_display, button_info)
 
 
-class RadioGroup():
+class RadioGroup:
     def __init__(self, *args):
         self.radios = list(args)
 
@@ -152,14 +152,14 @@ class Radio:
     @property
     def x(self):
         if self.centered:
-            return ((self.display_width//2) - (self.size//2)) + self.x_offset
+            return (self.display_width//2) + self.x_offset
         else:
             return self.x_offset
 
     @property
     def y(self):
         if self.centered:
-            return ((self.display_width//2) - (self.size//2)) + self.y_offset
+            return (self.display_width//2) + self.y_offset
         else:
             return self.y_offset
 
@@ -190,3 +190,50 @@ class Radio:
         if self.checked == True:
             pygame.draw.circle(game_display, self.checked_color, (self.x, self.y), self.size - self.margin)
 
+
+class Checkbox:
+    def __init__(self, display_dimensions, offsets, centered=True, checked=False, enabled=True):
+        self.display_width, self.display_height = display_dimensions
+        self.x_offset, self.y_offset = offsets
+        self.centered = centered
+        self.checked = checked
+        self.enabled = enabled
+
+        self.size = 20
+        self.checkmark = check_img
+
+        self.color = (200, 200, 200)
+        self.checked_color = (50, 50, 50)
+
+    @property
+    def x(self):
+        if self.centered:
+            return ((self.display_width//2) - (self.size//2)) + self.x_offset
+        else:
+            return self.x_offset
+
+    @property
+    def y(self):
+        if self.centered:
+            return ((self.display_width//2) - (self.size//2)) + self.y_offset
+        else:
+            return self.y_offset
+
+    def check_for_mouse_over(self, mouse_pos):
+        mouse_x, mouse_y = mouse_pos
+        if self.x < mouse_x < self.x + self.size and self.y < mouse_y < self.y + self.size:
+            return True
+        else:
+            return False 
+
+    def check_if_clicked(self, mouse_pos):
+        if self.check_for_mouse_over(mouse_pos) and self.enabled:
+            self.checked = not self.checked
+
+    def display(self, game_display):
+        # TODO: display differently when disabled
+        pygame.draw.rect(game_display, self.color, [self.x, self.y, self.size, self.size])
+
+        if self.checked == True:
+            self.checkmark = pygame.transform.scale(self.checkmark, (self.size, self.size))
+            game_display.blit(self.checkmark, [self.x, self.y])
