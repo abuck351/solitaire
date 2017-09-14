@@ -135,8 +135,8 @@ class RadioGroup():
 
 
 class Radio:
-    def __init__(self, dimensions, offsets, centered=True, checked=False, enabled=True):
-        self.display_width, self.display_height = dimensions
+    def __init__(self, display_dimensions, offsets, centered=True, checked=False, enabled=True):
+        self.display_width, self.display_height = display_dimensions
         self.x_offset, self.y_offset = offsets
         self.centered = centered
         self.checked = checked

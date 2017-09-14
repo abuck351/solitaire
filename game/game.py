@@ -45,12 +45,12 @@ def game_loop():
                 if event.key == pygame.K_r:
                     game_loop()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                mouse_x, mouse_y = pygame.mouse.get_pos()
+                mouse_pos = pygame.mouse.get_pos()
                 if event.button == 1:
-                    piles_to_update = deck.handle_click((mouse_x, mouse_y))
+                    piles_to_update = deck.handle_click(mouse_pos)
                     deck.update(piles_to_update, display_dimensions[1])
                 if event.button == 3:
-                    deck.handle_right_click((mouse_x, mouse_y))
+                    deck.handle_right_click(mouse_pos)
 
         game_display.fill(blue)
         deck.display(game_display)
@@ -58,44 +58,75 @@ def game_loop():
         clock.tick(FPS)
 
 
-def start_menu():
-    title = Text(display_dimensions, (0, -100), "Solitaire", 50, black)
+def options_menu():
+    title = Text(display_dimensions, (0, -350), "Options", 40, black)
 
     buttons = []
-    buttons.append(Button(display_dimensions, "Play", (0, 0), (100, 50), blue, text_color=white, action="start_game"))
-    buttons.append(Button(display_dimensions, "Quit", (200, 0), (100, 50), red, text_color=white, action="quit"))
-    buttons.append(Button(display_dimensions, "Options", (-200, 0), (100, 50), grey, text_color=white, enabled=False, action="options"))
+    buttons.append(Button(display_dimensions, "Back", (10, 10), (75, 25), red, centered=False, text_color=white, text_size=14, action="back"))
 
-    radio1 = Radio(display_dimensions, (12, 12), centered=False, checked=True)
-    radio2 = Radio(display_dimensions, (30, 30), centered=False)
-    radio_group1 = RadioGroup(radio1, radio2)
+    radio1 = Radio(display_dimensions, (0, 0), checked=True)
+    radio2 = Radio(display_dimensions, (0, 30))
+    radio3 = Radio(display_dimensions, (0, 60))
+    radiogroup1 = RadioGroup(radio1, radio2, radio3)
 
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 quit_game()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                mouse_x, mouse_y = pygame.mouse.get_pos()
+                mouse_pos = pygame.mouse.get_pos()
                 if event.button == 1:
                     for button in buttons:
-                        if button.check_if_clicked((mouse_x, mouse_y)):
+                        if button.check_if_clicked(mouse_pos):
+                            if button.action == "back":
+                                start_menu()
+                            else:
+                                print("Button action: {} does not exist".format(button.action))
+
+                    radiogroup1.check_if_clicked(mouse_pos)
+
+        game_display.fill(white)
+
+        title.display(game_display)
+
+        radiogroup1.display(game_display)
+
+        for button in buttons:
+            button.display(game_display, pygame.mouse.get_pos())
+
+        pygame.display.update()
+
+
+def start_menu():
+    title = Text(display_dimensions, (0, -100), "Solitaire", 50, black)
+
+    buttons = []
+    buttons.append(Button(display_dimensions, "Play", (0, 0), (100, 50), blue, text_color=white, text_size=26, action="start_game"))
+    buttons.append(Button(display_dimensions, "Quit", (200, 0), (100, 50), red, text_color=white, action="quit"))
+    buttons.append(Button(display_dimensions, "Options", (-200, 0), (100, 50), grey, text_color=white, action="options"))
+
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quit_game()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_pos = pygame.mouse.get_pos()
+                if event.button == 1:
+                    for button in buttons:
+                        if button.check_if_clicked(mouse_pos):
                             if button.action == "start_game":
                                 game_loop()
                             elif button.action == "quit":
                                 quit_game()
                             elif button.action == "options":
-                                # options_menu()
+                                options_menu()
                                 pass
                             else:
                                 print("Button action: {} does not exist".format(button.action))
 
-                    radio_group1.check_if_clicked((mouse_x, mouse_y))
-
         game_display.fill(white)
 
         title.display(game_display)
-        
-        radio_group1.display(game_display)
 
         for button in buttons:
             button.display(game_display, pygame.mouse.get_pos())
