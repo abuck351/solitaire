@@ -23,20 +23,20 @@ class Deck:
         self.empty_color = (100, 100, 200)
 
         self.card_size = (100, 150)
+        self.card_images = {}
+        self.piles = []
+
         name_of_image = os.path.join('resources', 'card_back.png')
         self.card_back = pygame.image.load(name_of_image)
         self.card_back = pygame.transform.scale(self.card_back, self.card_size)
-
-        self.piles = []
 
     def load_cards(self):
         for suit in self.suits:
             for rank in self.ranks:
                 name_of_image = os.path.join('resources', 'cards', '{}_of_{}.png'.format(rank, suit))
-                img = pygame.image.load(name_of_image)
-                img = pygame.transform.scale(img, self.card_size)
+                self.card_images[name_of_image] = pygame.transform.scale(pygame.image.load(name_of_image), self.card_size)
 
-                self.cards.append(Card(img, self.card_back, self.card_size, rank, suit))
+                self.cards.append(Card(name_of_image, self.card_size, rank, suit))
 
     def load_piles(self, display_size):
         display_width, display_height = display_size
@@ -130,6 +130,11 @@ class Deck:
             for card in pile.cards:
                 if self.selection and self.selection_rect != None and card == self.selected_cards[0]:
                     pygame.draw.rect(game_display, self.selection_color, self.selection_rect)
-                img, x, y = card.display_info()
-                game_display.blit(img, [x, y])
+
+                if card.face_up:  
+                    img = self.card_images[card.name_of_image]
+                else:
+                    img = self.card_back
+
+                game_display.blit(img, [card.x, card.y])
 
