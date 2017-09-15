@@ -1,6 +1,7 @@
 import pygame
 from deck import Deck
 from ui import Text, Button, RadioGroup, Radio, Checkbox
+import settings_manager
 
 
 white = (255, 255, 255)
@@ -59,17 +60,16 @@ def game_loop():
 
 
 def options_menu():
+    settings = settings_manager.load_settings()
+
     title = Text(display_dimensions, (0, -350), "Options", 40, black)
+    about = Text(display_dimensions, (0, 350), "Made in 2017 by Aaron Buckles", 14, black)
 
     buttons = []
     buttons.append(Button(display_dimensions, "Back", (10, 10), (75, 25), red, centered=False, text_color=white, text_size=14, action="back"))
 
-    radio1 = Radio(display_dimensions, (0, 0), checked=True)
-    radio2 = Radio(display_dimensions, (0, 30))
-    radio3 = Radio(display_dimensions, (0, 60))
-    radiogroup1 = RadioGroup(radio1, radio2, radio3)
-
-    checkbox1 = Checkbox(display_dimensions, (0, 100))
+    draw_three_checkbox = Checkbox(display_dimensions, (10, 100), centered=False, checked=settings['draw_three'])
+    draw_three_label = Text(display_dimensions, (40, 100), "Draw three cards from deck", 14, black, centered=False)
 
     while True:
         for event in pygame.event.get():
@@ -81,18 +81,20 @@ def options_menu():
                     for button in buttons:
                         if button.check_if_clicked(mouse_pos):
                             if button.action == "back":
+                                settings_manager.save_settings({'draw_three': draw_three_checkbox.checked})
                                 start_menu()
                             else:
                                 print("Button action: {} does not exist".format(button.action))
 
-                    radiogroup1.check_if_clicked(mouse_pos)
-                    checkbox1.check_if_clicked(mouse_pos)
+                    draw_three_checkbox.check_if_clicked(mouse_pos)
 
         game_display.fill(white)
 
         title.display(game_display)
-        radiogroup1.display(game_display)
-        checkbox1.display(game_display)
+        about.display(game_display)
+
+        draw_three_label.display(game_display)
+        draw_three_checkbox.display(game_display)
 
         for button in buttons:
             button.display(game_display, pygame.mouse.get_pos())

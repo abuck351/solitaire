@@ -215,7 +215,7 @@ class Checkbox:
     @property
     def y(self):
         if self.centered:
-            return ((self.display_width//2) - (self.size//2)) + self.y_offset
+            return ((self.display_height//2) - (self.size//2)) + self.y_offset
         else:
             return self.y_offset
 

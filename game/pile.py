@@ -1,11 +1,13 @@
 from collections import namedtuple
+import settings_manager
 
 
 class Pile:
     def __init__(self, cards, x, y, card_size, pile_type="tableau"):
         self.Order = namedtuple('Order', ['foundation', 'rank', 'color_suit'])
         self.card_width, self.card_height = card_size
-        self.draw_three = True
+
+        self.draw_three = settings_manager.load_settings()['draw_three']
 
         self.pile_type = pile_type
         if self.pile_type == 'tableau':
