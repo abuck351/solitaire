@@ -48,22 +48,25 @@ class Deck:
         foundation_x_step = self.card_size[0] + pile_spacing
         foundation_start_x = display_width - (foundation_x_step * 4)
 
-        # tableau piles
-        self.piles.append(Pile([self.cards[0]], start_x, start_y, self.card_size))
-        self.piles.append(Pile(self.cards[1:3], start_x + self.card_size[0] + pile_spacing, start_y, self.card_size))
-        self.piles.append(Pile(self.cards[3:6], start_x + self.card_size[0]*2 + pile_spacing*2, start_y, self.card_size))
-        self.piles.append(Pile(self.cards[6:10], start_x + self.card_size[0]*3 + pile_spacing*3, start_y, self.card_size))
-        self.piles.append(Pile(self.cards[10:15], start_x + self.card_size[0]*4 + pile_spacing*4, start_y, self.card_size))
-        self.piles.append(Pile(self.cards[15:21], start_x + self.card_size[0]*5 + pile_spacing*5, start_y, self.card_size))
-        self.piles.append(Pile(self.cards[21:28], start_x + self.card_size[0]*6 + pile_spacing*6, start_y, self.card_size))
+        tableau1 = Pile([self.cards[0]], start_x, start_y, self.card_size)
+        tableau2 = Pile(self.cards[1:3], start_x + self.card_size[0] + pile_spacing, start_y, self.card_size)
+        tableau3 = Pile(self.cards[3:6], start_x + self.card_size[0]*2 + pile_spacing*2, start_y, self.card_size)
+        tableau4 = Pile(self.cards[6:10], start_x + self.card_size[0]*3 + pile_spacing*3, start_y, self.card_size)
+        tableau5 = Pile(self.cards[10:15], start_x + self.card_size[0]*4 + pile_spacing*4, start_y, self.card_size)
+        tableau6 = Pile(self.cards[15:21], start_x + self.card_size[0]*5 + pile_spacing*5, start_y, self.card_size)
+        tableau7 = Pile(self.cards[21:28], start_x + self.card_size[0]*6 + pile_spacing*6, start_y, self.card_size)
 
-        self.piles.append(Pile(self.cards[28:], start_x, pile_spacing, self.card_size, pile_type="deck"))
-        self.piles.append(Pile([], start_x + self.card_size[0] + pile_spacing, pile_spacing, self.card_size, pile_type="wastepile"))
+        stock = Pile(self.cards[28:], start_x, pile_spacing, self.card_size, pile_type="stock")
+        waste = Pile([], start_x + self.card_size[0] + pile_spacing, pile_spacing, self.card_size, pile_type="waste")
 
-        self.piles.append(Pile([], foundation_start_x, pile_spacing, self.card_size, pile_type="foundation"))
-        self.piles.append(Pile([], foundation_start_x + foundation_x_step, pile_spacing, self.card_size, pile_type="foundation"))
-        self.piles.append(Pile([], foundation_start_x + foundation_x_step*2, pile_spacing, self.card_size, pile_type="foundation"))
-        self.piles.append(Pile([], foundation_start_x + foundation_x_step*3, pile_spacing, self.card_size, pile_type="foundation"))
+        foundation1 = Pile([], foundation_start_x, pile_spacing, self.card_size, pile_type="foundation")
+        foundation2 = Pile([], foundation_start_x + foundation_x_step, pile_spacing, self.card_size, pile_type="foundation")
+        foundation3 = Pile([], foundation_start_x + foundation_x_step*2, pile_spacing, self.card_size, pile_type="foundation")
+        foundation4 = Pile([], foundation_start_x + foundation_x_step*3, pile_spacing, self.card_size, pile_type="foundation")
+
+        self.piles = [tableau1, tableau2, tableau3, tableau4, tableau5, tableau6, tableau7,
+                      stock, waste,
+                      foundation1, foundation2, foundation3, foundation4]
 
     def shuffle_cards(self):
         random.shuffle(self.cards)

@@ -20,12 +20,12 @@ class Pile:
             self.order = self.Order(foundation='ace', rank=1, color_suit='same-suit')
             self.face_up = 'all'
             self.height = self.card_height
-        elif self.pile_type == 'wastepile':
+        elif self.pile_type == 'waste':
             self.fanned = False
             self.order = self.Order(foundation=None, rank=None, color_suit=None)
             self.face_up = 'all'
             self.height = self.card_height
-        elif self.pile_type == 'deck':
+        elif self.pile_type == 'stock':
             self.fanned = False
             self.order = self.Order(foundation=None, rank=None, color_suit=None)
             self.face_up = 'none'
@@ -102,13 +102,13 @@ class Pile:
                     selection = True
                     selected_cards = self.cards[index:]
 
-        if self.pile_type == 'deck':
+        if self.pile_type == 'stock':
             deselect_pile = True
 
             # find the wastepile
             wastepile = None
             for pile in piles:
-                if pile.pile_type == 'wastepile':
+                if pile.pile_type == 'waste':
                     wastepile = pile
                     break
 
@@ -143,7 +143,7 @@ class Pile:
         valid = True
         
         # cannot transfer to the deck
-        if pile_to_transfer_to.pile_type == 'deck' or pile_to_transfer_to.pile_type == 'wastepile':
+        if pile_to_transfer_to.pile_type == 'stock' or pile_to_transfer_to.pile_type == 'waste':
             valid = False
 
         # if a pile is empty only certain cards can be placed there
