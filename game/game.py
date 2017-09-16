@@ -30,6 +30,11 @@ def quit_game():
 def game_loop():
     FPS = 10
 
+    undo_button = Button(display_dimensions, "Undo", (10, 10), (30, 30), grey, centered=False, text_size=11, action="undo")
+    redo_button = Button(display_dimensions, "Redo", (45, 10), (30, 30), grey, centered=False, text_size=11, action="redo")
+    pause_button = Button(display_dimensions, "Pause", (display_dimensions[0]-50, 10), (40, 30), grey, centered=False, text_size=10, action="pause")
+    buttons = [undo_button, redo_button, pause_button]
+
     deck = Deck()
     deck.load_cards()
     deck.shuffle_cards()
@@ -50,10 +55,20 @@ def game_loop():
                 if event.button == 1:
                     piles_to_update = deck.handle_click(mouse_pos)
                     deck.update(piles_to_update, display_dimensions[1])
+                    for button in buttons:
+                        if button.check_if_clicked(mouse_pos):
+                            if button.action == "undo":
+                                print("UNDO")
+                            elif button.action == "redo":
+                                print("REDO")
                 if event.button == 3:
                     deck.handle_right_click(mouse_pos)
 
         game_display.fill(blue)
+
+        for button in buttons:
+            button.display(game_display, pygame.mouse.get_pos())
+
         deck.display(game_display)
         pygame.display.update()
         clock.tick(FPS)
@@ -62,11 +77,11 @@ def game_loop():
 def options_menu():
     settings = settings_manager.load_settings()
 
-    title = Text(display_dimensions, (0, -350), "Options", 40, black)
-    about = Text(display_dimensions, (0, 350), "Made in 2017 by Aaron Buckles", 14, black)
+    title_text = Text(display_dimensions, (0, -350), "Options", 40, black)
+    about_text = Text(display_dimensions, (0, 350), "Made in 2017 by Aaron Buckles", 14, black)
 
-    buttons = []
-    buttons.append(Button(display_dimensions, "Back", (10, 10), (75, 25), red, centered=False, text_color=white, text_size=14, action="back"))
+    back_button = Button(display_dimensions, "Back", (10, 10), (75, 25), red, centered=False, text_color=white, text_size=14, action="back")
+    buttons = [back_button]
 
     draw_three_checkbox = Checkbox(display_dimensions, (10, 100), centered=False, checked=settings['draw_three'])
     draw_three_label = Text(display_dimensions, (40, 100), "Draw three cards from deck", 14, black, centered=False)
@@ -90,8 +105,8 @@ def options_menu():
 
         game_display.fill(white)
 
-        title.display(game_display)
-        about.display(game_display)
+        title_text.display(game_display)
+        about_text.display(game_display)
 
         draw_three_label.display(game_display)
         draw_three_checkbox.display(game_display)
@@ -105,10 +120,10 @@ def options_menu():
 def start_menu():
     title = Text(display_dimensions, (0, -100), "Solitaire", 50, black)
 
-    buttons = []
-    buttons.append(Button(display_dimensions, "Play", (0, 0), (100, 50), blue, text_color=white, text_size=26, action="start_game"))
-    buttons.append(Button(display_dimensions, "Quit", (200, 0), (100, 50), red, text_color=white, action="quit"))
-    buttons.append(Button(display_dimensions, "Options", (-200, 0), (100, 50), grey, text_color=white, action="options"))
+    play_button = Button(display_dimensions, "Play", (0, 0), (100, 50), blue, text_color=white, text_size=26, action="start_game")
+    quit_button = Button(display_dimensions, "Quit", (200, 0), (100, 50), red, text_color=white, action="quit")
+    options_button = Button(display_dimensions, "Options", (-200, 0), (100, 50), grey, text_color=white, action="options")
+    buttons = [play_button, quit_button, options_button]
 
     while True:
         for event in pygame.event.get():
