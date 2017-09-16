@@ -1,18 +1,23 @@
 import pickle
+import os
 
 
-default_settings = {'draw_three': True}
+default_settings = {'draw_three': False}
 
 def save_settings(settings):
     data = settings
-    file = open("settings.data", "wb")
+
+    file_path = os.path.join("game_data", "settings.data")
+    file = open(file_path, "wb")
+
     pickle.dump(data, file)
     file.close()
 
 
 def load_settings():
     try:
-        file = open("settings.data", "rb")
+        file_path = os.path.join("game_data", "settings.data")
+        file = open(file_path, "rb")
     except FileNotFoundError:
         save_settings(default_settings)
         return default_settings
