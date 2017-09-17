@@ -172,6 +172,9 @@ class Pile:
             for card in selected_cards:
                 pile_to_transfer_to.cards.append(card)
                 self.cards.remove(card)
+            return True
+        else:
+            return False
 
     def selection_rect(self, card):
         padding = 10

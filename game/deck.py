@@ -7,7 +7,7 @@ from card import Card
 
 # the deck class should handle the clicking of the cards
 class Deck:
-    def __init__(self):
+    def __init__(self, piles=[]):
         self.cards = []
 
         self.suits = ['clubs', 'diamonds', 'hearts', 'spades']
@@ -24,7 +24,7 @@ class Deck:
 
         self.card_size = (100, 150)
         self.card_images = {}
-        self.piles = []
+        self.piles = piles
 
         name_of_image = os.path.join('resources', 'card_back.png')
         self.card_back = pygame.image.load(name_of_image)
@@ -93,9 +93,16 @@ class Deck:
                 pile.update_positions()
 
     def handle_click(self, mouse_position):
+        piles_to_update = None
+        valid_move = False
+
         if self.selection == False:
             # the player selects card/s
             self.selected_pile = self.which_pile_clicked(mouse_position)
+
+            if self.selected_pile.pile_type == 'stock':
+                valid_move = True
+
             if self.selected_pile != None:
                 self.selection, self.selected_cards, deselect_pile = self.selected_pile.selected(mouse_position, self.piles)
                 if deselect_pile:
@@ -103,17 +110,17 @@ class Deck:
                 else:
                     if len(self.selected_cards) != 0:
                         self.selection_rect = self.selected_pile.selection_rect(self.selected_cards[0])
-            return None
         else:
             pile_to_transfer_to = self.which_pile_clicked(mouse_position)
             if self.selected_pile != None and pile_to_transfer_to != None:
-                self.selected_pile.transfer_cards(self.selected_cards, pile_to_transfer_to, self.ranks)
+                valid_move = self.selected_pile.transfer_cards(self.selected_cards, pile_to_transfer_to, self.ranks)
                 piles_to_update = self.selected_pile, pile_to_transfer_to
             else:
                 piles_to_update = None
 
             self.deselect()
-            return piles_to_update
+        
+        return piles_to_update, valid_move
 
     def handle_right_click(self, mouse_position):
         self.deselect()

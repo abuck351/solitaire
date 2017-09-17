@@ -1,7 +1,7 @@
 import pygame
 from deck import Deck
 from ui import Text, Button, RadioGroup, Radio, Checkbox
-import settings_manager
+import settings_manager, history_manager
 
 
 white = (255, 255, 255)
@@ -40,6 +40,8 @@ def game_loop():
     deck.shuffle_cards()
     deck.load_piles(display_dimensions)
 
+    history_manager.add_deck(deck)
+
     while True:
         if deck.check_for_win():
             print("You win!!!")
@@ -53,14 +55,17 @@ def game_loop():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = pygame.mouse.get_pos()
                 if event.button == 1:
-                    piles_to_update = deck.handle_click(mouse_pos)
+                    piles_to_update, valid_move = deck.handle_click(mouse_pos)
                     deck.update(piles_to_update, display_dimensions[1])
+                    if valid_move:
+                        history_manager.add_deck(deck)
+
                     for button in buttons:
                         if button.check_if_clicked(mouse_pos):
                             if button.action == "undo":
-                                print("UNDO")
+                                history_manager.undo(deck)
                             elif button.action == "redo":
-                                print("REDO")
+                                history_manager.redo(deck)
                 if event.button == 3:
                     deck.handle_right_click(mouse_pos)
 
