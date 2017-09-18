@@ -22,21 +22,28 @@ class Deck:
         self.selection_color = (255, 255, 0)
         self.empty_color = (100, 100, 200)
 
-        self.card_size = (100, 150)
         self.card_images = {}
+        self.card_size = (100, 150)
         self.piles = piles
 
         name_of_image = os.path.join('resources', 'card_back.png')
-        self.card_back = pygame.image.load(name_of_image)
-        self.card_back = pygame.transform.scale(self.card_back, self.card_size)
+        self.card_back_image = pygame.image.load(name_of_image)
+        self.card_back = self.resize_card_back()
+
+    def resize_card_back(self):
+        return pygame.transform.scale(self.card_back_image, self.card_size)
+
+    def resize_card_images(self):
+        for name_of_image, card_image in self.card_images.items():
+            self.card_images[name_of_image] = pygame.transform.scale(card_image, self.card_size)
 
     def load_cards(self):
         for suit in self.suits:
             for rank in self.ranks:
                 name_of_image = os.path.join('resources', 'cards', '{}_of_{}.png'.format(rank, suit))
-                self.card_images[name_of_image] = pygame.transform.scale(pygame.image.load(name_of_image), self.card_size)
-
+                self.card_images[name_of_image] = pygame.image.load(name_of_image)
                 self.cards.append(Card(name_of_image, self.card_size, rank, suit))
+        self.resize_card_images()
 
     def load_piles(self, display_size):
         display_width, display_height = display_size
