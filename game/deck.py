@@ -100,8 +100,9 @@ class Deck:
             # the player selects card/s
             self.selected_pile = self.which_pile_clicked(mouse_position)
 
-            if self.selected_pile.pile_type == 'stock':
-                valid_move = True
+            if self.selected_pile != None:
+                if self.selected_pile.pile_type == 'stock':
+                    valid_move = True
 
             if self.selected_pile != None:
                 self.selection, self.selected_cards, deselect_pile = self.selected_pile.selected(mouse_position, self.piles)
