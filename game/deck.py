@@ -7,7 +7,8 @@ from card import Card
 
 # the deck class should handle the clicking of the cards
 class Deck:
-    def __init__(self, piles=[]):
+    def __init__(self, piles=[], card_images={}, card_size=(100, 150)):
+        # cards list is only used when starting/restarting a game
         self.cards = []
 
         self.suits = ['clubs', 'diamonds', 'hearts', 'spades']
@@ -17,14 +18,14 @@ class Deck:
         self.selection = False
         self.selected_cards = []
         self.selected_pile = None
-
         self.selection_rect = None
         self.selection_color = (255, 255, 0)
         self.empty_color = (100, 100, 200)
 
-        self.card_images = {}
-        self.card_size = (100, 150)
+        # these attributes can be modified when undoing/redoing
         self.piles = piles
+        self.card_images = card_images
+        self.card_size = card_size
 
         name_of_image = os.path.join('resources', 'card_back.png')
         self.card_back_image = pygame.image.load(name_of_image)
