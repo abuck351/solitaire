@@ -156,4 +156,3 @@ class Deck:
                     img = self.card_back
 
                 game_display.blit(img, [card.x, card.y])
-
