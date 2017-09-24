@@ -20,16 +20,50 @@ game_display = pygame.display.set_mode(display_dimensions)
 pygame.display.set_caption('Solitare')
 
 clock = pygame.time.Clock()
+FPS = 10
 
 
 def quit_game():
     pygame.quit()
     quit()
 
+def win_screen():
+    quit_button = Button(display_dimensions, "Quit", (250, 0), (200, 100), red, text_color=white, text_size=25, action="quit")
+    play_again_button = Button(display_dimensions, "Play Again", (0, 0), (200, 100), blue, text_color=white, text_size=25, action="play_again")
+    start_menu_button = Button(display_dimensions, "Start Menu", (-250, 0), (200, 100), green, text_color=white, text_size=25, action="start_menu")
+    buttons = [quit_button, play_again_button, start_menu_button]
+
+    win_text = Text(display_dimensions, (0, -200), "You Win!!!", 60, black)
+
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quit_game()
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                    mouse_pos = pygame.mouse.get_pos()
+                    if event.button == 1:
+                        for button in buttons:
+                            if button.check_if_clicked(mouse_pos):
+                                if button.action == "quit":
+                                    quit_game()
+                                elif button.action == "play_again":
+                                    game_loop()
+                                elif button.action == "start_menu":
+                                    start_menu()
+                                else:
+                                    print("Button action: {} does not exist".format(button.action))
+
+        game_display.fill(white)
+
+        for button in buttons:
+            button.display(game_display, pygame.mouse.get_pos())
+
+        win_text.display(game_display)
+
+        pygame.display.update()
+        clock.tick(FPS)
 
 def game_loop():
-    FPS = 10
-
     undo_button = Button(display_dimensions, "Undo", (10, 10), (30, 30), grey, centered=False, text_size=11, action="undo")
     redo_button = Button(display_dimensions, "Redo", (45, 10), (30, 30), grey, centered=False, text_size=11, action="redo")
     pause_button = Button(display_dimensions, "Pause", (display_dimensions[0]-50, 10), (40, 30), grey, centered=False, text_size=10, action="pause")
@@ -42,7 +76,7 @@ def game_loop():
 
     while True:
         if deck.check_for_win():
-            print("You win!!!")
+            win_screen()
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -50,6 +84,8 @@ def game_loop():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_r:
                     game_loop()
+                elif event.key == pygame.K_w:
+                    win_screen()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = pygame.mouse.get_pos()
                 if event.button == 1:
@@ -78,10 +114,10 @@ def game_loop():
 def options_menu():
     settings = settings_manager.load_settings()
 
-    title_text = Text(display_dimensions, (0, -350), "Options", 40, black)
+    title_text = Text(display_dimensions, (0, -370), "Options", 40, black)
     about_text = Text(display_dimensions, (0, 350), "Made in 2017 by Aaron Buckles", 14, black)
 
-    back_button = Button(display_dimensions, "Back", (10, 10), (75, 25), red, centered=False, text_color=white, text_size=14, action="back")
+    back_button = Button(display_dimensions, "Back", (10, 25), (75, 25), red, centered=False, text_color=white, text_size=14, action="back")
     buttons = [back_button]
 
     draw_three_checkbox = Checkbox(display_dimensions, (10, 100), centered=False, checked=settings['draw_three'])
@@ -116,6 +152,7 @@ def options_menu():
             button.display(game_display, pygame.mouse.get_pos())
 
         pygame.display.update()
+        clock.tick(FPS)
 
 
 def start_menu():
@@ -153,6 +190,7 @@ def start_menu():
             button.display(game_display, pygame.mouse.get_pos())
 
         pygame.display.update()
+        clock.tick(FPS)
 
 
 start_menu()
