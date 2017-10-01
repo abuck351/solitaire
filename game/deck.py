@@ -1,6 +1,7 @@
 import os
 import random
 import pygame
+from itertools import count
 from pile import Pile
 from card import Card
 
@@ -156,3 +157,20 @@ class Deck:
                     img = self.card_back
 
                 game_display.blit(img, [card.x, card.y])
+
+
+class CompressedDeck:
+    _ids = count(0)
+
+    def __init__(self, piles):
+        self.id = next(self._ids)
+        self.piles = piles
+
+    def decompress(self, card_images, card_size):
+        return Deck(self.piles, card_images, card_size)
+
+    def __str__(self):
+        return str([card for card in self.piles if card.face_up == True])
+
+    def __repr__(self):
+        return "CompressedDeck #{}".format(self.id)

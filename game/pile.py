@@ -197,13 +197,3 @@ class Pile:
             return True
         else:
             return False
-
-    def __str__(self):
-        face_up_cards = []
-        for card in self.cards:
-            if card.face_up:
-                face_up_cards.append(card)
-        return str(face_up_cards)
-
-    def __repr__(self):
-        return str(self)

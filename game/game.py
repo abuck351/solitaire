@@ -1,8 +1,7 @@
 import pygame
 from deck import Deck
 from ui import Text, Button, RadioGroup, Radio, Checkbox
-import settings_manager
-from undo_manager import UndoManager
+import settings_manager, history_manager
 
 
 white = (255, 255, 255)
@@ -74,7 +73,7 @@ def game_loop():
     deck.shuffle_cards()
     deck.load_piles(display_dimensions)
 
-    undo_m = UndoManager(deck)
+    hm = history_manager.HistoryManager(deck)
 
     while True:
         if deck.check_for_win():
@@ -94,13 +93,12 @@ def game_loop():
                     piles_to_update, valid_move = deck.handle_click(mouse_pos)
                     deck.update(piles_to_update, display_dimensions[1])
                     if valid_move:
-                        print("deck added")
-                        undo_m.add_deck(deck)
+                        hm.valid_move_made(deck)
 
                     for button in buttons:
                         if button.check_if_clicked(mouse_pos):
                             if button.action == "undo":
-                                deck = undo_m.undo(deck)
+                                deck = hm.undo(deck)
                 if event.button == 3:
                     deck.handle_right_click(mouse_pos)
 
