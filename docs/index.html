@@ -5,65 +5,89 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="icon" type="image/png" href="https://aaronbuckles.com/favicon.png">
 
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet"  type='text/css'>
-	<link href="https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto:400,400i" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="https://aaronbuckles.com/css/style.css">
 </head>
 <body>
 	<h1>Solitaire</h1>
-	<h3>Check it out <a href="https://github.com/Aaron-Buckles/solitaire" target="_blank">here</a> on GitHub</h3>
+	<ul class="flex-list">
+		<li class="link-button">
+			<a href="/projects/"><i class="fas fa-arrow-left"></i> Go back to projects</a>
+		</li>
+		<li class="link-button">
+			<a href="https://github.com/Aaron-Buckles/solitaire" target="_blank">
+				<i class="fab fa-github"></i> Github
+			</a>
+		</li>
+		<li class="link-button">
+			<a href="https://code.google.com/archive/p/vector-playing-cards/" target="_blank">
+				<i class="fas fa-box-open"></i>Assets
+			</a>
+		</li>
+	</ul>
 
 	<h2>About the Project</h2>
-	<div class="panel">
-		<div class="section section-top">
-			<img src="resources/solitaire_screenshot.png" width=1000>
-		</div>
-		<div class="section section-bottom">
-			<p>I wanted to make a game that didn't just rely on the command line and instead used a GUI. I settled on creating Solitaire because it is a fun card game to play when alone. To create the game, I used a Python module called <a href="http://pygame.org/news" target="_blank">pygame</a> to display the cards and make them clickable. Currently the project is a work in progress, with more features still to be added!</p>
-		</div>
-	</div>
+	<p><em>Pygame must be installed for the game to work</em></p>
+	<p>I wanted to make a game that didn't just rely on the command line and instead used a GUI. I settled on creating Solitaire because it is a fun card game to play when alone. To create the game, I used a Python module called <a href="http://pygame.org/news" target="_blank">pygame</a> to display the cards and make them clickable. Currently the project is a work in progress, with more features still to be added!</p>
+	<img src="resources/solitaire_screenshot.png" alt="Screenshot from the start of a solitaire game">
 
-	<h2>How to play</h2>
-	<div class="panel">
-		<div class="section section-top">
-			<h4>Learn the rules of Solitaire <a href="http://www.bicyclecards.com/how-to-play/solitaire/" target="_blank">here</a></h4>
-		</div>
-		<div class="section section-bottom">
-			<h4>Controls</h4>
-			<p>While in a game, if the <i>r</i> key is pressed then a new game will be started</p>
-			<hr>
-			<p>Click on a card to select it and all cards below (They will be highlighted by a yellow border)</p>
-			<p>Once selected, click on a pile you would like to move the card/s to</p>
-			<p>Right click to deselect</p>
-			<hr>
-			<p>Draw three cards setting in options menu</p>
-		</div>
-	</div>
+	<h2>How to Play</h2>
+	<ul class="flex-list">
+		<li class="link-button">
+			<a href="http://www.bicyclecards.com/how-to-play/solitaire/" target="_blank">
+				<i class="fas fa-scroll"></i> Official Rules
+			</a>
+		</li>
+	</ul>
+	<h3>Controls</h3>
+	<ul>
+		<li>While in a game, if the <i>r</i> key is pressed then a new game will be started</li>
+		<li>Click on a card to select it and all cards below (They will be highlighted by a yellow border)</li>
+		<li>Once selected, click on a pile you would like to move the card/s to</li>
+		<li>Right click to deselect</li>
+		<li>Draw three cards setting in options menu</li>
+	</ul>
 
 	<h2>Aspirations</h2>
-	<div class="panel">
-		<div class="section section-top">
-			<h4>Goals</h4>
-			<p>Create a finished project</p>
-			<p>Improve my skills working with 2D graphics</p>
-			<p>Become more familiar with git</p>
-		</div>
-		<div class="section">
-			<h4>Todo</h4>
-			<p>Moves and Time stats</p>
-			<p>Resizable window</p>
-			<p>Drag and drop</p>
-			<p>Pause menu</p>
-			<p>Save games</p>
-		</div>
-		<div class="section section-bottom">
-			<h4>Completed</h4>
-			<p>Win Condition</p>
-			<p>Piles resize to fit within the game window</p>
-			<p>Settings framework (still more settings to add)</p>
-			<p>Win screen</p>
-			<p>Undo functionality</p>
-		</div>
-	</div>
+
+	<h3>Goals</h3>
+	<ul>
+		<li>Create a finished project</li>
+		<li>Improve my skills working with 2D graphics</li>
+		<li>Become more familiar with git</li>
+	</ul>
+
+	<h3>Todo</h3>
+	<ul>
+		<li>Moves and Time stats</li>
+		<li>Resizable window</li>
+		<li>Drag and drop</li>
+		<li>Pause menu</li>
+		<li>Save games</li>
+		<li>Refactor code</li>
+	</ul>
+
+	<h3>Completed</h3>
+	<ul>
+		<li>Win Condition</li>
+		<li>Piles resize to fit within the game window</li>
+		<li>Settings framework (still more settings to add)</li>
+		<li>Win screen</li>
+		<li>Undo functionality</li>
+	</ul>
+
+	<h3>Solitaire 2</h3>
+	<ul class="flex-list">
+		<li class="link-button">
+			<a href="https://github.com/Aaron-Buckles/solitaire2" target="_blank">
+				<i class="fab fa-github"></i> Github
+			</a>
+		</li>
+	</ul>
+	<p>I started a new repository called Solitaire 2. It is an updated version, however, since I have not worked on it as much there is little functionality. I do believe the code is much cleaner and more maintainable.</p>
+
+	<h2>Testing</h2>
+	<p>To test the code, run the <code>solitaire_tests.py</code> file.</p>
+
+	<script src="https://kit.fontawesome.com/42a03310d8.js"></script>
 </body>
 </html>
